@@ -201,3 +201,68 @@ export default function Button() {
 }
 ```
 It is great for isolated components with minimal styling e.g. a subscribe button.
+
+## Props
+Props shorts for properties. They are read-only properties that are shared between components. A parent component can send data to a child component. 
+In JSX:
+`Student.jsx`
+```jsx
+export default function Student(props) {
+return (
+		<div>
+			<p> name: {props.name} </p>
+			<p> age: {props.age} </p>
+			<p> isStudent: {props.isStudent} </p>
+		</div>
+	);
+}
+```
+`App.jsx`
+```jsx
+import Student from "./Student";
+
+// this is the root component
+export default function App() {
+	return (
+		<Student name="name" age={30} isStudent={true} />
+	);
+};
+```
+
+In TSX (I personally define the type in a file that is called `types.ts` in `src` folder): 
+`types.ts`
+```tsx
+export type Person = {
+	name: string,
+	age: number
+	isStudent: boolean
+}
+```
+
+`Student.tsx`
+```tsx
+import { Person } from "./types";
+
+export default function Student({student}: {student: Person}) {
+	return (
+		<div>
+			<p> name: {student.name && '5616'} </p>
+			<p> age: {student.age} </p>
+			<p> student: {student.isStudent ? "yes" : 'no'} </p>
+		</div>
+	);
+}
+```
+
+`App.tsx`
+```tsx
+import Student from "./Student";
+
+// this is the root component
+export default function App() {
+	return (
+		<Student student={{name:'ali', age:10, isStudent: true}} />
+	);
+}
+```
+
