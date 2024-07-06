@@ -186,5 +186,18 @@ export default function Button() {
 	);
 }
 ```
+or in jsx instead of tsx:
+`Button.jsx`
+```jsx
+export default function Button() {
+	const styles = {
+		backgroundColor: "white",
+		color: 'rgb(120, 100, 130)'
+	}
+	
+	return (
+		<button style={styles}> Click me </button>
+	);
+}
+```
 It is great for isolated components with minimal styling e.g. a subscribe button.
- 
