@@ -115,8 +115,8 @@ In react, we use `className` instead of `class` (they are same and just the name
 ```
 
 _tip_: You can get placeholder photos from this URL:
-```url
-https://via.placeholder.com/<size-in-pixel>
+```html
+<img src="https://via.placeholder.com/<size-in-pixel>" alt="placeholder" />
 ```
 
 ## Types of writing CSS in React
