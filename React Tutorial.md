@@ -372,7 +372,7 @@ export default function Button() {
 ## React hooks and `useState()` hook
 **React Hooks**: Special function that allows functional components to use React features without writing class components (since React `v16.8`) (e.g. `useState`, `useEffect`, `useContext`, etc.)
 **`useState()`**: It is the mostly used React hook and allows the creation of a stateful variable and a setter function to update its value in the Virtual DOM.
-`MyComponent.tsx`
+`ClickChange.tsx`
 ```tsx
 import React, { useState } from "react";
 
@@ -431,3 +431,30 @@ export default function Counter() {
 	</div>);
 }
 ```
+
+## `onChange()` event handler
+It is an event handler used primarily with form elements e.g. `<input>`, `<textarea>`, etc.
+This event handler triggers(calls) a function every time the value of the input changes.
+`InputChange.tsx`
+```tsx
+import React, { useState, ChangeEvent } from "react";
+
+export default function InputChange() {
+// Define a state variable 'name' and a function 'setName' to update it.
+const [name, setName] = useState('enter your name');
+
+// Event handler for updating the name state.
+// 'ChangeEvent<HTMLInputElement>' ensures 'event.target' is typed correctly.
+const updateNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
+	setName(e.target.value);
+};
+  
+return (
+	<div>
+		<p> name : {name} </p>
+		<input type="text" value={name} onChange={updateNameHandler} />
+	</div>
+	);
+}
+```
+
