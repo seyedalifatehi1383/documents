@@ -482,3 +482,34 @@ const increaseHandler = () => {
 	setCount(prevCount => prevCount + 1)
 }
 ```
+
+## Update OBJECTS in state
+`MyComponent.tsx`
+```tsx
+import { CarObj } from "./types";
+
+export default function MyComponent(){
+	const [car, setCar] = useState<CarObj>({year: 2024,
+											mark: "Ford",
+											model: "Mustang"});
+
+	function handleYearChange(e) {
+		setCar(c => ({...c, year: e.target.value}));
+	}
+	
+	return (
+		<div>
+			<input value={car.year} onChange={handleYearChange} />
+		</div>
+	);
+}
+```
+`types.ts`
+```ts
+export type CarObj = {
+	year: number,
+	mark: string,
+	model: string
+}
+```
+
