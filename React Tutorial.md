@@ -319,3 +319,53 @@ _tip2_: You can do this for filter items:
 fruits.filter(fruit => fruit.calories < 100); 
 ```
 
+## Click events
+It is an interaction when a user clicks on specific element. We can respond to clicks by passing a callback to the `onClick` event handler.
+I wrote two examples of `onClick` syntax:
+(The syntax of `onDoubleClick` and other click events are like `onClick` event.)
+`Button.tsx`
+```tsx
+export default function Button() {
+	const handleClick1 = () => console.log('clicked')
+	const handleClick2 = (name: string) => console.log(name)
+
+	return (
+	<>
+		<!-- example 1 -->
+		<button onClick = {() => handleClick1()}> Click me 1 </button>	
+		
+		<!-- example 2 -->
+		<button onClick = {() => handleClick2('saf')}> Click me 2 </button>		
+
+		<!-- in this example, 'saf' printed just once at the start of -->
+		<!-- the app and when we clicked on the button,  -->
+		<!-- nothing happens -->
+		<button onClick = {handleClick2('saf')}> Click me 2 </button>		
+	</>
+	);
+}
+```
+`App.tsx`
+```tsx
+import Button from "./Button";
+
+// this is the root component
+export default function App() {
+	return (<Button />);
+}
+```
+
+### `event` parameter
+With click events we are automatically provided with an event argument., It's an object that describes the event that occurred but as a parameter people usually shorten the `event` parameter to be `e`.
+`Button.tsx`
+```tsx
+export default function Button() {
+	// I put the type of e any to avoid error
+	const handleClick = (e: any) => console.log(e)
+
+	return (
+		<button onClick={(e) => handleClick(e)}> Click me </button>
+	);
+}
+```
+ 
