@@ -513,3 +513,36 @@ export type CarObj = {
 }
 ```
 
+## Update ARRAYS in state
+`MyComponent.tsx`
+```tsx
+export default function MyComponent(){
+	const [foods, setFoods] = useState<string[]>(["pizza", "rice", "salad"]);
+
+	function handleAddFood(e) {
+		const newFood = document.getElementById("foodInput").value;
+		document.getElementById("foodInput").value = "";
+
+		// setFoods([...foods, newFood]);
+		// or (updater function)
+		setFoods(f => [...f, newFood]);
+	}
+	function handleRemoveFood(index: number) {
+		// _ means ignoring variable
+		setFoods(foods.filter((_, i) => i !== index))
+	}
+	
+	return (
+		<div>
+			<ul>
+				{food.map((food, index) =>
+				<li key={index} onClick={() => handleRemoveFood(index)}>
+					{food} 
+				</li>)}
+			</ul>
+			<input id="foodInput" type="text" />
+			<button onClick={handleAddFood}> add food </button>
+		</div>
+	);
+}
+```
