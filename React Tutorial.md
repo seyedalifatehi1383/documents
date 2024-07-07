@@ -368,4 +368,66 @@ export default function Button() {
 	);
 }
 ```
- 
+
+## React hooks and `useState()` hook
+**React Hooks**: Special function that allows functional components to use React features without writing class components (since React `v16.8`) (e.g. `useState`, `useEffect`, `useContext`, etc.)
+**`useState()`**: It is the mostly used React hook and allows the creation of a stateful variable and a setter function to update its value in the Virtual DOM.
+`MyComponent.tsx`
+```tsx
+import React, { useState } from "react";
+
+export default function MyComponent() {
+	// 'guest' is the default value
+	let [name, setName] = useState<string>('guest') 
+
+	// In this case, the variable "name" is updated BUT the dom still shows the
+	// previous value:
+
+	// const updateName = () => {
+	//	name = "saf"
+	//	console.log(name)
+	// } 
+
+	// In this case, the variable "name" is updated AND the dom shows the
+	// current value:
+	const updateName = () => {
+		setName('saf')
+		console.log(name) // dont need it!
+	}
+
+	return(<div>
+		<p> name: {name} </p>
+		<button onClick={updateName}> set name </button>
+	</div>)
+
+}
+```
+
+A simple counter:
+`Counter.tsx`
+```tsx
+import React, { useState } from "react";
+
+  
+
+export default function Counter() {
+	let [count, setCount] = useState<number>(0)
+
+	const increaseCount = () => {
+		setCount(count + 1)
+	}
+	const decreaseCount = () => {
+		setCount(count - 1)
+	}
+	const resetCount = () => {
+		setCount(0)
+	}
+	
+	return(<div>
+		<p> {count} </p>
+		<button onClick={increaseCount}> increase </button>
+		<button onClick={decreaseCount}> decrease </button>
+		<button onClick={resetCount}> reset </button>
+	</div>);
+}
+```
