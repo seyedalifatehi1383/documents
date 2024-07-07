@@ -458,3 +458,27 @@ return (
 }
 ```
 
+## Updater function
+Updater function is a function passed as an argument. It is usually used for `setState()` e.g. `setYear(year + 1)` (Better practice is to pass an updater function as an argument (usually represented as an arrow function) like `setYear(() => ...)` (Arrow function is an updater function.) ).
+_tip 1_: Allow for safe updates based on the previous state.
+_tip 2_: Used with multiple state updates and asynchronous functions.
+_tip 3_: It can be a good practice to use updater function.
+(See the `Counter.tsx` component.)
+Consider this code:
+```tsx
+const increaseHandler = () => {
+	setCount(count + 1)
+	setCount(count + 1)
+	setCount(count + 1)
+}
+```
+The value of `count` updated just once because React batches state updates together for performance reasons. We should write this code like below:
+```tsx
+const increaseHandler = () => {
+	// in convention, we write the variable like prevVar or v
+	// (adding prev at the start of the var or write the first letter of it)
+	setCount(prevCount => prevCount + 1)
+	setCount(prevCount => prevCount + 1)
+	setCount(prevCount => prevCount + 1)
+}
+```
