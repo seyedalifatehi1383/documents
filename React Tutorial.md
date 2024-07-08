@@ -544,3 +544,6 @@ export default function MyComponent(){
 	);
 }
 ```
+## Update ARRAYS of OBJECTS in state
+This part is an exercise for you!
+
