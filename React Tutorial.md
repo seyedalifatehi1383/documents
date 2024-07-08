@@ -201,3 +201,121 @@ export default function Button() {
 }
 ```
 It is great for isolated components with minimal styling e.g. a subscribe button.
+
+## Props
+Props shorts for properties. They are read-only properties that are shared between components. A parent component can send data to a child component. 
+In JSX:
+`Student.jsx`
+```jsx
+export default function Student(props) {
+return (
+		<div>
+			<p> name: {props.name} </p>
+			<p> age: {props.age} </p>
+			<p> isStudent: {props.isStudent} </p>
+		</div>
+	);
+}
+```
+`App.jsx`
+```jsx
+import Student from "./Student";
+
+// this is the root component
+export default function App() {
+	return (
+		<Student name="name" age={30} isStudent={true} />
+	);
+};
+```
+
+In TSX (I personally define the type in a file that is called `types.ts` in `src` folder): 
+`types.ts`
+```tsx
+export type Person = {
+	name: string,
+	age: number
+	isStudent: boolean
+}
+```
+
+`Student.tsx`
+```tsx
+import { Person } from "./types";
+
+export default function Student({student}: {student: Person}) {
+	return (
+		<div>
+			<p> name: {student.name} </p>
+			<p> age: {student.age} </p>
+			<p> student: {student.isStudent ? "yes" : 'no'} </p>
+		</div>
+	);
+}
+```
+
+`App.tsx`
+```tsx
+import Student from "./Student";
+
+// this is the root component
+export default function App() {
+	return (
+		<Student student={{name:'ali', age:10, isStudent: true}} />
+	);
+}
+```
+
+## Conditional Rendering
+We can use `if` statement to produce conditional rendering:
+`UserGreeting.tsx`
+```tsx
+export default function UserGreeting({userLoggedIn}: {userLoggedIn:boolean}) {
+	if (userLoggedIn) {
+		return <h2> welcome </h2>
+	}
+	else {
+		return <h2> please login </h2>
+	}
+}
+```
+
+Also you can use a ternary operator `return(con ? true : false)`.
+
+_tip_: You can evaluate a JS or TS variable with your HTML code (I know that it is a little strange but it is JS :) ).
+```tsx
+let variable = <h2> some context </h2>
+```
+
+## Rendering lists
+`List.tsx`
+```tsx
+// I want you to think about that how to define the type of Fruit object
+import { Fruit } from './types'
+
+export default function List() {
+	const fruits: Fruit[] = [{id = 1, name = "apple", calories = 90},
+					{id = 2, name = "orange", calories = 22},
+					{id = 3, name = "banana", calories = 74},
+					{id = 4, name = "pineapple", calories = 134}];
+
+	// key attribute is a unique variable for that we can easily edit or remove items
+	const listItems = fruits.map(fruit => <li key={fruit.id}>{fruit.mame}</li>);
+	return(<ol> {listItems} </ol>);
+}
+// and when you export this component, you can see the output.
+```
+
+_tip1_: Some types of sort:
+```tsx
+fruits.sort((a, b) => a.name.localeCompare(b.name)); // alphabetical
+fruits.sort((a, b) => b.name.localeCompare(a.name)); // reverse alphabetical
+fruits.sort((a, b) => a.calories - b.calories); // numeric
+fruits.sort((a, b) => b.calories - a.calories); // reverse numeric
+```
+
+_tip2_: You can do this for filter items:
+```tsx
+fruits.filter(fruit => fruit.calories < 100); 
+```
+
