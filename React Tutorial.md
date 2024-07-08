@@ -518,11 +518,9 @@ export type CarObj = {
 ```tsx
 export default function MyComponent(){
 	const [foods, setFoods] = useState<string[]>(["pizza", "rice", "salad"]);
+	const [newFood, setNewFood] = useState<string>('')
 
 	function handleAddFood(e) {
-		const newFood = document.getElementById("foodInput").value;
-		document.getElementById("foodInput").value = "";
-
 		// setFoods([...foods, newFood]);
 		// or (updater function)
 		setFoods(f => [...f, newFood]);
@@ -535,12 +533,12 @@ export default function MyComponent(){
 	return (
 		<div>
 			<ul>
-				{food.map((food, index) =>
+				{foods.map((foods, index) =>
 				<li key={index} onClick={() => handleRemoveFood(index)}>
-					{food} 
+					{foods}
 				</li>)}
 			</ul>
-			<input id="foodInput" type="text" />
+			<input type="text" value={newFood} onChange={(e) => {setNewFood(e.target.value)}} />
 			<button onClick={handleAddFood}> add food </button>
 		</div>
 	);
