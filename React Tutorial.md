@@ -547,3 +547,31 @@ export default function MyComponent(){
 ## Update ARRAYS of OBJECTS in state
 This part is an exercise for you!
 
+## Passing a function from parent to child
+`App.tsx`
+```tsx
+import Button from "./Button";
+export interface CompProps {
+	onPlay: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+const handlePlay = () => {// do something}
+
+// this is the root component
+export default function App() {
+	return (<Comp onPlay={handlePlay} />);
+}
+```
+
+`Comp.tsx`
+```tsx
+import { CompProps } from "./App";
+
+export default function Comp({onPlay}: CompProps) {
+	return (
+		<button onClick={onPlay}> click here </button>
+	);
+}
+```
+
+
