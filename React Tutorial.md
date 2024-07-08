@@ -574,4 +574,169 @@ export default function Comp({onPlay}: CompProps) {
 }
 ```
 
+## `useEffect()` hook
+It is a React hook that tells React DO SOME CODE WHEN:
+1. This component re-renders.
+2. This component mounts.
+3. The state of a value.
 
+How to use:
+```tsx
+useEffect(function, [dependencies])
+
+// 1. useEffect(() => {})           // runs after every re-render
+// 2. useEffect(() => {}, [])       // runs only on mount
+// 3. useEffect(() => {}, [value])  // runs on mount + when value changes
+```
+
+Examples:
+`MyComponent.tsx`
+```tsx
+import { useEffect, useState } from "react";
+
+export default function MyComponent() {
+	const [count, setCount] = useState<number>(0);
+	
+	const addCount = () => {
+		setCount(c => c + 1)
+	}  
+
+	useEffect(() => {
+		// this code is for removing a component from the dom
+		// when before the pervious render, before the pervious render, 
+		// or when we unmount a component
+
+		// return() => {
+			// some cleanup code
+		// }
+
+		document.title = `${count}`
+		console.log(1)
+	})
+	
+	useEffect(() => {
+		document.title = `hello i am saf`
+		console.log(2)
+	}, [])
+
+	// ]t is up to you to test the third case of useEffect usage 
+
+	return(
+		<>
+			<p> count: {count} </p>
+			<button onClick={addCount}> add </button>
+		</>
+	);
+}
+```
+
+Usage:
+1. Event Listeners
+2. DOM manipulation
+3. Subscriptions (real-time updates)
+4. Fetching data from an API
+5. Clean up when a component unmounts
+
+Benefits to use `useEffect()`:
+1. Our code is more organized.
+2. In the code below (the `return` statement).
+
+Another Example:
+`MyComponent.tsx`
+```tsx
+import { useEffect, useState } from "react";
+
+export default function MyComponent() {
+	const [width, setWidth] = useState<number>(window.innerWidth);
+	const [height, setHeight] = useState<number>(window.innerHeight);
+	
+	const handleResize = () => {
+		setWidth(window.innerWidth)
+		setHeight(window.innerHeight)
+	}
+
+	// what is the difference between these codes (hint: open the console and see the count of log for each code)
+
+	useEffect(() => {
+		window.addEventListener("resize", handleResize);
+		console.log('event listener added')	
+
+		// this code is for removing a component from the dom
+		// when before the pervious render, before the pervious render, 
+		// or when we unmount a component
+		return () => {
+			window.removeEventListener("resize", handleResize);
+			console.log('event listener removed')
+		}
+	}, [])
+
+	// window.addEventListener("resize", handleResize);
+	// console.log('event listener added')
+
+	return(
+		<>
+			<p> window width: {width}px </p>
+			<p> window height: {height}px </p>
+		</>
+	);
+}
+```
+
+_**tip 2**_:
+`main.tsx`
+```tsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.tsx'
+import './index.css'
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+	// the StrictMode is a devtool that renders react code twice for import some tools for developers
+	// and make it easier for developers to develop code and when we want to build our app, we should
+	// disable StrictMode.
+	
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>,
+)
+```
+
+## Digital Clock Project
+I want you to create this clock by yourselves and then check the code below:
+`DigitalClock.tsx`
+```tsx
+import React, {useState, useEffect} from 'react'
+
+export default function DigitalClock() {
+	const [time, setTime] = useState(new Date())	
+	
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			setTime(new Date());
+		}, 1000);
+	
+		return () => {
+			clearInterval(intervalId)
+		}
+	}, [])
+	
+	const formatTime = () => {
+		let hours = time.getHours()
+		const minutes = time.getMinutes()
+		const seconds = time.getSeconds()
+		const meridiem = hours >= 12 ? 'pm' : 'am'
+		hours = hours % 12 || 12
+		return `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)} ${meridiem}`
+	}
+
+	const padZero = (number: number) => {	
+		return (number < 10 ? "0" : '') + number
+	}
+
+	return (	
+		<div>
+			<span> {formatTime()} </span>
+		</div>
+	);
+}
+```
