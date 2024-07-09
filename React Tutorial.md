@@ -574,7 +574,25 @@ export default function Comp({onPlay}: CompProps) {
 }
 ```
 
+## React fragment
+`App.tsx`
+```tsx
+// this is the root component
+export default function App() {
+	return (<Modal>
+		<p> lorem ipsum </p>
+	</Modal>);
+}
+```
 
+`Modal.tsx`
+```tsx
+export default function Modal({children} : {children : ReactElement}) {
+	return(<div>
+		{children}
+	</div>);
+}
+```
 ## `useEffect()` hook
 It is a React hook that tells React DO SOME CODE WHEN:
 1. This component re-renders.
