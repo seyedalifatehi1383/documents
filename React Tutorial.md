@@ -574,6 +574,7 @@ export default function Comp({onPlay}: CompProps) {
 }
 ```
 
+
 ## `useEffect()` hook
 It is a React hook that tells React DO SOME CODE WHEN:
 1. This component re-renders.
@@ -740,3 +741,7 @@ export default function DigitalClock() {
 	);
 }
 ```
+
+## `useContext()` hook
+It is a React hook that allows you to share values between multiple levels of components without passing props through each level.
+I will explain later.
