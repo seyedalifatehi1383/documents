@@ -267,7 +267,7 @@ export default function App() {
 ```
 
 ## Conditional Rendering
-We can use `if` statement to produce conditional rendering:
+1- We can use `if` statement to produce conditional rendering:
 `UserGreeting.tsx`
 ```tsx
 export default function UserGreeting({userLoggedIn}: {userLoggedIn:boolean}) {
@@ -280,7 +280,19 @@ export default function UserGreeting({userLoggedIn}: {userLoggedIn:boolean}) {
 }
 ```
 
-Also you can use a ternary operator `return(con ? true : false)`.
+2- Also you can use a ternary operator `return(con ? true : false)`.
+
+3-
+```tsx
+export default function Modal({showModal}: {showModal:boolean}) {
+	return(<>
+		{
+			showModal && <h1> showing modal </h1>
+		}
+	</>)
+}
+
+```
 
 _tip_: You can evaluate a JS or TS variable with your HTML code (I know that it is a little strange but it is JS :) ).
 ```tsx
@@ -763,3 +775,4 @@ export default function DigitalClock() {
 ## `useContext()` hook
 It is a React hook that allows you to share values between multiple levels of components without passing props through each level.
 I will explain later.
+
